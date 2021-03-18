@@ -25,6 +25,7 @@ function ChatFooter({ currRoom, setMessages, ipfs, who }) {
     
                 const message = JSON.stringify({
                     nodeID:Object.keys(currRoom)[0],
+                    to: Object.keys(currRoom)[0],
                     account:accA,
                     amount:Units.convert(requestedAmount, 'finney', 'wei'),
                     type: 2,
@@ -32,7 +33,7 @@ function ChatFooter({ currRoom, setMessages, ipfs, who }) {
                 })
                 // console.log("message:",message)
                 // console.log(peer+"_private");
-                ipfs.pubsub.publish ((Object.keys(currRoom)[0]).slice(-6)+"_private",message)
+                ipfs.pubsub.publish ("_OrbitDB._p2p._InitialHandshake",message)
              }
              else{
                  alert("Error fetching account details. Maybe caused by not having metamask extension. ")
