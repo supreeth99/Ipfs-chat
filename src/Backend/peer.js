@@ -23,10 +23,11 @@ const peer = async (setRooms, setMessages) => {
         setRooms((prevState) => ({ ...prevState, [room]: db }));
     });
     console.log(orbitdb.id.slice(-6));
-    ipfs.pubsub.subscribe(orbitdb.id.slice(-6) + "_private", (msg) => {
+    ipfs.pubsub.subscribe("_OrbitDB._p2p._InitialHandshake", (msg) => {
         const data = JSON.parse(msg.data.toString());
         console.log(data);
-        messageHandler(ipfs, orbitdb, data, rooms, setRooms, setMessages);
+        if(data.to === orbitdb.id)
+            messageHandler(ipfs, orbitdb, data, rooms, setRooms, setMessages);
     });
 
     return { ipfs, orbitdb };
